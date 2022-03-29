@@ -39,6 +39,6 @@ jobs:
         script: | 
           cd /home/apps/kpogodin-server && cp nginx.conf /etc/nginx/sites-available 
           cd /etc/nginx/sites-available && rm default && mv nginx.conf default
-          systemctl start nginx
+          service nginx restart
           pm2 kill
           cd /home/apps/kpogodin-server && pm2 start "npm run start"
