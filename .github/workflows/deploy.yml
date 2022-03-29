@@ -23,4 +23,16 @@ jobs:
       # install
       - run: npm ci
       # Deploy
-      - run: cd . && rsync -e "ssh -i $HOME/.ssh/key -o StrictHostKeyChecking=no" --archive --compress --delete . root@kpogodin.ru:/home/apps/kpogodin-server/
+      - run: cd . && rsync -e "ssh -i $HOME/.ssh/key -o StrictHostKeyChecking=no" --archive --compress --delete . root@kpogodin.ru:/home/apps/kpogodin-server/ 
+  build:
+    name: ssh_comands
+    runs-on: ubuntu-latest
+    steps:
+    - name: executing remote ssh commands using password
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USER_NAME }}
+        key: ${{ secrets.DEPLOY_KEY }}
+        script: | 
+          cd /home/apps/kpogodin-server && cp nginx.conf /etc/nginx/sites-available
