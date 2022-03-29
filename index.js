@@ -1,9 +1,13 @@
 const express = require('express')
-const app = express()
-const port = 3000
+const cors = require('cors')
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
+const app = express();
+const port = 4000;
+app.use(express.json());
+app.use(cors());
+
+app.get('/api/v1/pokemons', (req, res) => {
+  return res.json([{ name: 'БУЛЬБАЗАВР' }, {name: 'ПИКАЧУ' }, { name: 'СКВИРЛ' }]);
 })
 
 app.listen(port, () => {
