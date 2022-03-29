@@ -24,8 +24,10 @@ jobs:
       - run: npm ci
       # Deploy
       - run: cd . && rsync -e "ssh -i $HOME/.ssh/key -o StrictHostKeyChecking=no" --archive --compress --delete . root@kpogodin.ru:/home/apps/kpogodin-server/ 
-  build:
+
+  ssh_comands:
     name: ssh_comands
+    needs: deploy
     runs-on: ubuntu-latest
     steps:
     - name: executing remote ssh commands using password
@@ -35,4 +37,8 @@ jobs:
         username: ${{ secrets.USER_NAME }}
         key: ${{ secrets.DEPLOY_KEY }}
         script: | 
-          cd /home/apps/kpogodin-server && cp nginx.conf /etc/nginx/sites-available
+          cd /home/apps/kpogodin-server && cp nginx.conf /etc/nginx/sites-available 
+          cd /etc/nginx/sites-available && rm default && mv nginx.conf default
+          systemctl start nginx
+          pm2 kill
+          cd /home/apps/kpogodin-server && pm2 start "npm run start"
