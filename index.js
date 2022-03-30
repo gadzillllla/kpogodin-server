@@ -6,7 +6,7 @@ const port = 4000;
 app.use(express.json());
 app.use(cors());
 
-const testResponse = [{ name: 'БУЛЬБАЗАВР' }, {name: 'ПИКАЧУ' }, { name: 'СКВИРЛ' }, {name: 'ЧЕРМАНДЕР'}, {name: 'РОЙ БЕДРИЛ'}, {name: 'ПСАЙДАК'}, {name: 'ВЕДЕМОН'}];
+const testResponse = [{ name: 'ВАЛЕРАЗАВР' }, {name: 'ПИКАЧУ' }, { name: 'СКВИРЛ' }, {name: 'ЧЕРМАНДЕР'}, {name: 'РОЙ БЕДРИЛ'}, {name: 'ПСАЙДАК'}, {name: 'ВЕДЕМОН'}];
 
 app.get('/api/v1/pokemons', (req, res) => {
   return res.json(testResponse);
